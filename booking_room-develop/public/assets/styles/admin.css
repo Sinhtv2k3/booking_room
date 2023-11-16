@@ -1,0 +1,9 @@
+[class*="sidebar-dark-"] .nav-sidebar > .nav-item.menu-open > .nav-link {
+  background-color: transparent;
+}
+[class*="sidebar-dark-"] .nav-sidebar > .nav-item.menu-open > .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+[class*="sidebar-dark-"] .nav-sidebar > .nav-item.menu-open > .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}

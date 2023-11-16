@@ -1,0 +1,28 @@
+.content-wrapper {
+  background-color: #ffffff;
+}
+.btn-add-room {
+  float: right;
+}
+.type-room .add_title,
+.title {
+  font-weight: 600;
+  color: rgb(40, 196, 170);
+}
+.main-sidebar {
+  /* display: none; */
+}
+#example1_wrapper .row:nth-child(2) {
+  width: 100%;
+}
+.img-room-type {
+  width: 100px;
+  margin: auto;
+}
+.parent-img-room-type {
+  gap: 10px;
+}
+.disable {
+  pointer-events: none;
+  background-color: #ccc;
+}

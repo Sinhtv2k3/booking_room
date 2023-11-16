@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Fixed Sidebar</title>
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        margin: 20px;
+        color: #333;
+    }
+
+    h1 {
+        text-align: center;
+        color: #2c3e50;
+    }
+
+    #customerForm {
+        margin-bottom: 20px;
+        background-color: #ecf0f1;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    #customerForm label {
+        display: block;
+        margin-bottom: 8px;
+        color: #3498db;
+    }
+
+    #customerForm input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    #customerForm button {
+        background-color: #3498db;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #customerList {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #customerList li {
+        background-color: #ecf0f1;
+        border: 1px solid #bdc3c7;
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    #customerList li strong {
+        color: #e74c3c;
+    }
+</style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+  
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+
+
+  <!-- Content Wrapper. Contains page content -->
+</head>
+<body>
+<h1>Quản lý khách hàng</h1>
+
+<form id="customerForm">
+    <label for="name">Tên:</label>
+    <input type="text" id="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+
+    <label for="phone">Số điện thoại:</label>
+    <input type="text" id="phone" required>
+
+    <button type="button" onclick="addCustomer()">Thêm</button>
+    <button type="button" onclick="editCustomer()">Sửa</button>
+    <button type="button" onclick="deleteCustomer()">Xóa</button>
+</form>
+
+<table id="customerTable">
+    <thead>
+        <tr>
+            <th>Tên</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    var customers = [];
+
+    function addCustomer() {
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var phone = document.getElementById('phone').value;
+
+        var customer = {
+            name: name,
+            email: email,
+            phone: phone
+        };
+
+        customers.push(customer);
+        displayCustomers();
+        clearForm();
+    }
+
+    function editCustomer() {
+        var index = prompt("Nhập số thứ tự khách hàng muốn sửa:");
+        if (index !== null) {
+            index = parseInt(index);
+            if (isValidIndex(index)) {
+                var name = document.getElementById('name').value;
+                var email = document.getElementById('email').value;
+                var phone = document.getElementById('phone').value;
+
+                customers[index] = {
+                    name: name,
+                    email: email,
+                    phone: phone
+                };
+
+                displayCustomers();
+                clearForm();
+            } else {
+                alert("Số thứ tự không hợp lệ.");
+            }
+        }
+    }
+
+    function deleteCustomer() {
+        var index = prompt("Nhập số thứ tự khách hàng muốn xóa:");
+        if (index !== null) {
+            index = parseInt(index);
+            if (isValidIndex(index)) {
+                customers.splice(index, 1);
+                displayCustomers();
+                clearForm();
+            } else {
+                alert("Số thứ tự không hợp lệ.");
+            }
+        }
+    }
+
+    function displayCustomers() {
+        var tableBody = document.querySelector('#customerTable tbody');
+        tableBody.innerHTML = '';
+
+        for (var i = 0; i < customers.length; i++) {
+            var row = tableBody.insertRow(i);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+
+            cell1.textContent = customers[i].name;
+            cell2.textContent = customers[i].email;
+            cell3.textContent = customers[i].phone;
+
+            row.onclick = function() {
+                var rowIndex = this.rowIndex;
+                populateForm(rowIndex);
+            };
+        }
+    }
+
+    function populateForm(index) {
+        var customer = customers[index];
+        document.getElementById('name').value = customer.name;
+        document.getElementById('email').value = customer.email;
+        document.getElementById('phone').value = customer.phone;
+    }
+
+    function clearForm() {
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('phone').value = '';
+    }
+
+    function isValidIndex(index) {
+        return !isNaN(index) && index >= 0 && index < customers.length;
+    }
+</script>
+
+</body>
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+</body>
+</html>
